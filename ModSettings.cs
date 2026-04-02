@@ -1,22 +1,26 @@
-﻿using MelonLoader;
-using UnityEngine;
+﻿using Il2Cpp;
 using Il2CppInterop;
 using Il2CppInterop.Runtime.Injection; 
+using Il2CppTLD.Platform;
+using MelonLoader;
 using System.Collections;
-using Il2Cpp;
+using System.Runtime.InteropServices;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Reflection;
+
 
 namespace ModSettings
 {
 	public class ModSettingsMain : MelonMod
 	{
-		public override void OnInitializeMelon()
+        public override void OnInitializeMelon()
 		{
-			#if DEBUG
+            #if DEBUG
 						ModSettingsExample.BasicExample.OnLoad();
 						ModSettingsExample.OnChangeExample.OnLoad();
 						ModSettingsExample.VisibilityExample.OnLoad();
-			#endif
+            #endif      
         }
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
@@ -41,13 +45,7 @@ namespace ModSettings
                         eventCam.gameObject.AddComponent<StandaloneInputModule>();
                     }
                 }
-            }
+            }            
         }
-
-        public override void OnUpdate()
-		{
-
-		}
-
     }
 }

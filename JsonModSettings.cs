@@ -1,5 +1,5 @@
 ﻿using MelonLoader;
-using MelonLoader.TinyJSON;
+using TLD.TinyJSON;
 using MelonLoader.Utils;
 using System.Reflection;
 using System.Text;

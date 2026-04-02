@@ -4,15 +4,11 @@
     <PropertyGroup>
         <!--This needs to be changed for the mod to compile.-->
         <TheLongDarkPath>W:/Steam/steamapps/common/TheLongDark</TheLongDarkPath>
-        <Platforms>AnyCPU;x64</Platforms>
     </PropertyGroup>
 
     <PropertyGroup>
         <!--This is the .NET version the mod will be compiled with. Don't change it.-->
         <TargetFramework>net6.0</TargetFramework>
-		
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
 
         <!--This tells the compiler to use the latest C# version.-->
         <LangVersion>Latest</LangVersion>
@@ -41,18 +37,6 @@
         <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
         <OutputType>Library</OutputType>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-      <DefineConstants>$(DefineConstants);STEAMWORKS_WIN;UNITY_STANDALONE_WIN;STEAMWORKS_X64</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      <DefineConstants>$(DefineConstants);STEAMWORKS_WIN;UNITY_STANDALONE_WIN;STEAMWORKS_X64</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-      <DefineConstants>$(DefineConstants);STEAMWORKS_WIN;UNITY_STANDALONE_WIN;STEAMWORKS_X64</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      <DefineConstants>$(DefineConstants);STEAMWORKS_WIN;UNITY_STANDALONE_WIN;STEAMWORKS_X64</DefineConstants>
-    </PropertyGroup>
 
     <!--This tells the compiler to not include referenced assemblies in the output folder.-->
     <ItemDefinitionGroup>
@@ -63,9 +47,6 @@
 
     <!--This is the list of assemblies that the mod references. Most of these are unnecessary for normal mods, but are included here for completeness.-->
     <ItemGroup>
-        <Reference Include="Il2Cppcom.rlabrecque.steamworks.net">
-          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\Il2Cppcom.rlabrecque.steamworks.net.dll</HintPath>
-        </Reference>
         <Reference Include="Il2CppInterop.Common">
           <HintPath>W:\Steam\steamapps\common\TheLongDark\MelonLoader\net6\Il2CppInterop.Common.dll</HintPath>
         </Reference>
@@ -79,6 +60,7 @@
         <Reference Include="0Harmony" />
         <Reference Include="Assembly-CSharp" />
         <Reference Include="Il2CppHOTween" />
+        <Reference Include="Il2CppNewtonsoft.Json" />
         <Reference Include="Il2CppSystem.Configuration" />
         <Reference Include="Il2CppSystem" />
         <Reference Include="Il2CppSystem.Runtime.Serialization" />
@@ -99,18 +81,12 @@
         <Reference Include="Il2CppTLD.TimeLib" />
         <Reference Include="Il2CppTLD.Trial" />
         <Reference Include="Il2CppTLD.UserGeneratedContent" />
-        <Reference Include="Newtonsoft.Json">
-          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\net6\Newtonsoft.Json.dll</HintPath>
-        </Reference>
         <Reference Include="Unity.Mathematics" />
         <Reference Include="Unity.TextMeshPro" />
         <Reference Include="UnityEngine.AssetBundleModule" />
         <Reference Include="UnityEngine" />
         <Reference Include="UnityEngine.CoreModule">
-          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule_Funky.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.IMGUIModule">
-          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.InputLegacyModule" />
         <Reference Include="UnityEngine.InputModule" />
@@ -118,9 +94,6 @@
         <Reference Include="UnityEngine.Il2CppImageConversionManager" />
         <Reference Include="UnityEngine.PhysicsModule">
           <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.PhysicsModule.dll</HintPath>
-        </Reference>
-        <Reference Include="UnityEngine.TextRenderingModule">
-          <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
           <HintPath>..\..\..\..\Steam\steamapps\common\TheLongDark\MelonLoader\Il2CppAssemblies\UnityEngine.UI.dll</HintPath>

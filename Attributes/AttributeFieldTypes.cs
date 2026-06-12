@@ -24,7 +24,7 @@ namespace ModSettings {
 		internal static bool IsFloatType(Type type) => floatTypes.Contains(type);
 		internal static bool IsChoiceType(Type type) => choiceTypes.Contains(type);
 		internal static bool IsSliderType(Type type) => sliderTypes.Contains(type);
-		internal static bool IsSupportedType(Type type) => type.IsEnum || supportedTypes.Contains(type);
+		internal static bool IsSupportedType(Type type) => type.IsEnum || supportedTypes.Contains(type) || type == typeof(string);
 
 		internal static long MaxValue(Type numericType) {
 			if (numericType == typeof(bool))

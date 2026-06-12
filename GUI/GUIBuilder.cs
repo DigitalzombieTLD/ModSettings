@@ -48,7 +48,9 @@ namespace ModSettings {
 						AddSliderSetting(modSettings, field, name, description, SliderAttribute.DefaultFloatRange);
 					} else if (IsIntegerType(fieldType)) {
 						AddSliderSetting(modSettings, field, name, description, SliderAttribute.DefaultIntRange);
-					} else {
+					} else if (fieldType == typeof(string)) {
+                        AddStringSetting(modSettings, field, name, description);
+                    } else {
 						throw new ArgumentException("Unsupported field type: " + fieldType.Name);
 					}
 				}
@@ -96,17 +98,50 @@ namespace ModSettings {
 			SetVisibilityListener(modSettings, field, setting, lastHeader);
 		}
 
-		private void UpdateKeyValue(ModSettingsBase modSettings, FieldInfo field, CustomKeybinding customKeybinding) {
+        private void AddStringSetting(ModSettingsBase modSettings, FieldInfo field, NameAttribute name, DescriptionAttribute description)
+        {
+            // Create menu item
+            GameObject setting = CreateSetting(name, description, ObjectPrefabs.KeyEntryPrefab, "Label");
+            GameObject keyButtonObject = setting.transform.FindChild("Keybinding_Button").gameObject;
+
+            CustomStringInputField customInputField = setting.AddComponent<CustomStringInputField>();
+            customInputField.keyRebindingButton = keyButtonObject.GetComponent<KeyRebindingButton>();
+            customInputField.fieldName = name.Name;
+            customInputField.currentString = (string)field.GetValue(modSettings);
+            customInputField.RefreshLabelValue();
+
+            UIButton uiButton = keyButtonObject.GetComponent<UIButton>();
+            EventDelegate.Set(uiButton.onClick, new Action(customInputField.OnClick));
+            customInputField.OnChange = new Action(() => UpdateStringValue(modSettings, field, customInputField));
+            modSettings.AddRefreshAction(() => UpdateStringChoice(modSettings, field, customInputField));
+
+            // Control visibility
+            SetVisibilityListener(modSettings, field, setting, lastHeader);
+        }
+
+        private void UpdateKeyValue(ModSettingsBase modSettings, FieldInfo field, CustomKeybinding customKeybinding) {
 			SetSettingsField(modSettings, field, customKeybinding.currentKeycodeSetting);
 		}
 
-		private void UpdateKeyChoice(ModSettingsBase modSettings, FieldInfo field, CustomKeybinding customKeybinding) {
+        private void UpdateStringValue(ModSettingsBase modSettings, FieldInfo field, CustomStringInputField customInputField)
+        {
+            SetSettingsField(modSettings, field, customInputField.currentString);
+        }
+
+        private void UpdateKeyChoice(ModSettingsBase modSettings, FieldInfo field, CustomKeybinding customKeybinding) {
 			KeyCode keyCode = (KeyCode)field.GetValue(modSettings);
 			customKeybinding.currentKeycodeSetting = keyCode;
 			customKeybinding.keyRebindingButton.SetValueLabel(keyCode.ToString());
 		}
 
-		private void AddChoiceSetting(ModSettingsBase modSettings, FieldInfo field, NameAttribute name, DescriptionAttribute description, ChoiceAttribute choice) {
+        private void UpdateStringChoice(ModSettingsBase modSettings, FieldInfo field, CustomStringInputField customInputField)
+        {
+            string StringVal = (string)field.GetValue(modSettings);
+            customInputField.currentString = StringVal;
+            customInputField.keyRebindingButton.SetValueLabel(StringVal);
+        }
+
+        private void AddChoiceSetting(ModSettingsBase modSettings, FieldInfo field, NameAttribute name, DescriptionAttribute description, ChoiceAttribute choice) {
 			// Create menu item
 			GameObject setting = CreateSetting(name, description, ObjectPrefabs.ComboBoxPrefab, "Label");
 			ConsoleComboBox comboBox = setting.GetComponent<ConsoleComboBox>();
